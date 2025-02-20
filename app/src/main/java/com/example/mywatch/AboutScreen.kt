@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
@@ -38,10 +39,11 @@ fun AboutScreen(name: String, email: String, modifier: Modifier = Modifier) {
                 painter = painterResource(id = R.drawable.profileimg),
                 contentDescription = "profile image",
                 modifier = Modifier
-                    .size(150.dp)
+                    .size(350.dp)
                     .clip(
                         RoundedCornerShape(75.dp)
                     )
+                    .border(2.dp, Color.Black, RoundedCornerShape(75.dp))
 
             )
             Spacer(modifier = Modifier.height(24.dp))

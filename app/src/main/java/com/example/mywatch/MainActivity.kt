@@ -1,10 +1,15 @@
 package com.example.mywatch
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -21,8 +26,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyWatchTheme {
-                val watchViewModel:WatchViewModel = viewModel()
-                WatchApp(watchViewModel)
+                Surface(modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.tertiary) {
+
+                    val watchViewModel:WatchViewModel = viewModel()
+                    WatchApp(watchViewModel)
+                }
+
 
 
 
@@ -33,6 +43,7 @@ class MainActivity : ComponentActivity() {
     }
 
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun WatchApp(watchViewModel: WatchViewModel) {
     val navController = rememberNavController()
@@ -49,6 +60,9 @@ fun WatchApp(watchViewModel: WatchViewModel) {
                     },
                     navigationToAbout = {
                         navController.navigate("about")
+                    },
+                    navigationToFavorite = {
+                        navController.navigate("favorites")
                     }
                 )
             }
@@ -57,7 +71,7 @@ fun WatchApp(watchViewModel: WatchViewModel) {
                 arguments = listOf(navArgument("watchId") { type = NavType.IntType })
             ) { backStackEntry ->
                 val watchId = backStackEntry.arguments?.getInt("watchId") ?: -1
-                DetailScreen(watchViewModel = watchViewModel, watchId = watchId, onbackClick = {
+                DetailScreen(watchViewModel = watchViewModel, watchId = watchId, onBackClick = {
                     navController.navigateUp()
                 } )
 
@@ -68,6 +82,14 @@ fun WatchApp(watchViewModel: WatchViewModel) {
                     email = "rofikadamnugraha@gmail.com",
                 )
             }
+            composable("favorites") {
+                FavoriteScreen(
+                    watchViewModel = watchViewModel,
+                    onBackClick = {navController.navigateUp()}
+
+                )
+            }
+
         }
     }
 

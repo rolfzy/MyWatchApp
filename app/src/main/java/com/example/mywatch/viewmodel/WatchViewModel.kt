@@ -39,19 +39,17 @@ class WatchViewModel:ViewModel() {
     fun updateSearchQuery(newQuery: String){
         _searchQuery.value = newQuery
     }
-//    fun isFavorite(watchId:Int):Boolean{
-//        return _favoriteIds.value.contains(watchId)
-//    }
-//    fun toggleFavorite(watchId: Int){
-//        viewModelScope.launch {
-//            _favoriteIds.update{ current ->
-//                if (current.contains(watchId)){
-//                    current - watchId
-//                }else{
-//                    current + watchId
-//                }
-//            }
-//        }
-//    }
+
+    fun toggleFavorite(watchId: Int){
+        viewModelScope.launch {
+            _favoriteIds.update{ current ->
+                if (current.contains(watchId)){
+                    current - watchId
+                }else{
+                    current + watchId
+                }
+            }
+        }
+    }
 }
 

@@ -19,6 +19,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -46,6 +47,7 @@ fun HomeScreen(
     watchViewModel: WatchViewModel,
     navigateToDetail: (Int) -> Unit,
     navigationToAbout: () -> Unit,
+    navigationToFavorite: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val filteredList by watchViewModel.filteredList.collectAsState()
@@ -56,10 +58,17 @@ fun HomeScreen(
             Text(text = "Watch App")
         },
             actions = {
+                IconButton(onClick = navigationToFavorite) {
+                    Icon(imageVector = Icons.Default.Favorite, contentDescription = "Favorites_Page")
+                }
                 IconButton(onClick = navigationToAbout) {
                     Icon(imageVector = Icons.Default.Person, contentDescription = "About_Page")
                 }
-            }
+
+            },
+
+
+
         )
     }
     ) { paddingValues ->
@@ -67,7 +76,7 @@ fun HomeScreen(
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = { watchViewModel.updateSearchQuery(it) },
-                label = { Text("Cari jam...") },
+                label = { Text("Cari Arloji...") },
                 singleLine = true,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -75,7 +84,7 @@ fun HomeScreen(
             )
             if (filteredList.isEmpty()) {
                 Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Text(text = "Data tidak ada")
+                    Text(text = "Arloji Yang Dicari Tidak Ada ⌚❌")
                 }
 
             } else {
